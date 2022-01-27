@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- With respect to the existing log4j2 file in the MuleSoft applications, 
+	as you might see, the elements that were exclusive to Mule have been eliminated -->
+
+<Configuration>
+	<Appenders>
+		<RollingFile name="file"
+			fileName="./logs/denodo-to-collibra-integration.log"
+			filePattern="./logs/denodo-to-collibra-integration-%i.log">
+			<PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
+			<SizeBasedTriggeringPolicy size="10 MB" />
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d [%t] %-5p %c - %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger
+			name="org.apache.http.client.protocol.ResponseProcessCookies"
+			level="ERROR">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="file" />
+		</Logger>
+		<Logger name="com.collibra" level="INFO" additivity="false">
+			<AppenderRef ref="console"/>
+			<AppenderRef ref="file" />
+		</Logger>
+		<Root level="INFO">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="file" />
+		</Root>
+	</Loggers>
+</Configuration>

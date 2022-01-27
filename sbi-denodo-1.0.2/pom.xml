@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.3</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>com.collibra.marketplace</groupId>
+	<artifactId>denodo-to-collibra-integration</artifactId>
+	<version>1.0.2</version>
+	<name>denodo-to-collibra-integration</name>
+	<description>Denodo metadata to Collibra Integration</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<start-class>com.collibra.marketplace.denodo.Application</start-class>
+		<log4j.version>2.17.0</log4j.version>
+		<slf4j.version>1.7.32</slf4j.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.collibra.marketplace</groupId>
+			<artifactId>collibra-integration-library</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+		   <groupId>org.apache.logging.log4j</groupId>
+		   <artifactId>log4j-core</artifactId>
+		   <version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.apache.logging.log4j</groupId>
+		   <artifactId>log4j-api</artifactId>
+		   <version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.apache.logging.log4j</groupId>
+		   <artifactId>log4j-jul</artifactId>
+		   <version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.apache.logging.log4j</groupId>
+		   <artifactId>log4j-slf4j-impl</artifactId>
+		   <version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.slf4j</groupId>
+		   <artifactId>jul-to-slf4j</artifactId>
+		   <version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<!-- Denodo JDBC Connection Dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.denodo</groupId>
+			<artifactId>denodo-vdp-jdbcdriver</artifactId>
+			<version>8.0</version>
+		</dependency>
+
+		<!-- Denodo JDBC Mock Dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<!-- Swagger UI -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<environmentVariables>
+						<jasypt.encryptor.password>${jasypt.encryptor.password}</jasypt.encryptor.password>
+					</environmentVariables>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>4.1</version>
+				<configuration>
+					<header>LICENSE.md</header>
+					<failIfMissing>true</failIfMissing>
+					<excludes>
+						<exclude>target/**</exclude>
+						<exclude>.gitignore</exclude>
+						<exclude>**/*.txt</exclude>
+						<exclude>**/*.xml</exclude>
+						<exclude>**/*.json</exclude>
+						<exclude>**/*.properties</exclude>
+						<exclude>**/src/main/resources/**</exclude>
+						<exclude>**/src/test/resources/**</exclude>
+						<useDefaultExcludes>true</useDefaultExcludes>
+						<useDefaultMapping>true</useDefaultMapping>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
